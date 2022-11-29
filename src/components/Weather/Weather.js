@@ -42,7 +42,7 @@ export default function Weather () {
         setInfoType(type);
     }
 
-    const classes = useStyles()
+    const classes = useStyles();
 
     return (
         <div className={classes.weatherPage}>
