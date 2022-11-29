@@ -2,7 +2,7 @@ import { apiCall } from "../../api";
 
 export default function Stations () {
     async function addStation () {
-        const resp = await apiCall('data/3.0/stations?', 'POST', {
+        await apiCall('data/3.0/stations?', 'POST', {
             external_id: "SF_TEST001",
             name: "San Francisco Test Station",
             latitude: 37.76,
@@ -16,9 +16,9 @@ export default function Stations () {
         console.log('getStations resp', resp)
     }
 
-    async function deleteStation (id) {
-        await apiCall(`data/3.0/stations/${id}`, 'DELETE')
-    }
+    // async function deleteStation (id) {
+    //     await apiCall(`data/3.0/stations/${id}`, 'DELETE')
+    // }
 
     return (
         <div>
