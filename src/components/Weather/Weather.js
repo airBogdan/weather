@@ -8,17 +8,20 @@ import { green } from "../../styles/variables";
 import ChevronDown from "../../assets/chevronDown";
 import MagnifyingGlass from "../../assets/MagnifyingGlass";
 import TickIcon from "../../assets/TickIcon";
+import useViewport from "../../utils/useViewport";
 
 export default function Weather () {
-    const CURRENT_WEATHER = { label: 'Current weather', value: 'weather' }
-    const FORECAST = { label: 'Forecasted weather', value: 'forecast' }
+    const CURRENT_WEATHER = { label: 'Current weather', value: 'weather' };
+    const FORECAST = { label: 'Forecasted weather', value: 'forecast' };
 
-    const [infoType, setInfoType] = useState({ label: 'Current weather', value: 'weather' })
-    const [weatherData, setWeather] = useState(null)
+    const [infoType, setInfoType] = useState({ label: 'Current weather', value: 'weather' });
+    const [weatherData, setWeather] = useState(null);
 
-    const [locationSearch, setLocationSearch] = useState('')
-    const [locationApi, setLocationApi] = useState({ city: '', country: '' })
-    const [showDropdown, setShowDropdown] = useState(false)
+    const [locationSearch, setLocationSearch] = useState('');
+    const [locationApi, setLocationApi] = useState({ city: '', country: '' });
+    const [showDropdown, setShowDropdown] = useState(false);
+
+    const { viewportWidth } = useViewport();
 
     async function getWeather (type) {
         const coords = await apiCall(`geo/1.0/direct?q=${locationSearch}`)
@@ -57,7 +60,7 @@ export default function Weather () {
                         id="location"
                         onInput={ev => setLocationSearch(ev.target.value)}
                         onKeyDown={e => e.code == 'Enter' ? getWeather() : null}
-                        placeholder={window.innerWidth > 800 ? 'Search by city, country, zip code' : 'Search'}
+                        placeholder={viewportWidth > 800 ? 'Search by city, country, zip code' : 'Search'}
                     />
                     <div className={classes.selectContainerOuter}>
                         <div onClick={() => setShowDropdown(!showDropdown)} className={classes.selectContainerInner}>

@@ -1,5 +1,5 @@
 import { createUseStyles } from 'react-jss';
-import { capitalize } from "../../utils";
+import { capitalize } from "../../utils/helpers";
 import { gray, gray2 } from "../../styles/variables";
 
 export default function CurrentWeather ({ weatherData, locationApi }) {
@@ -57,7 +57,6 @@ export default function CurrentWeather ({ weatherData, locationApi }) {
                     </p>
                 </div>
             </div>
-            {/*{Object.keys(weatherData).map(key => <p key={key}>{key} - {weatherData[key]}</p>)}*/}
         </div>
     )
 }
@@ -76,7 +75,6 @@ var useStyles = createUseStyles({
     heading: {
         margin: '0 0 14px 0',
         display: "flex",
-        // flexDirection: "column",
         justifyContent: 'space-between'
     },
     flexCol: {
@@ -99,7 +97,6 @@ var useStyles = createUseStyles({
         justifyContent: "space-between"
     },
     left: {
-        // display: 'flex',
         width: '40%'
     },
     crtWeatherContainer: {
@@ -146,8 +143,6 @@ var useStyles = createUseStyles({
         },
         '@media (max-width: 500px)': {
             flexWrap: "wrap",
-            // flexDirection: "column",
-            // textAlign: 'end',
             fontSize: '14px'
         }
     },

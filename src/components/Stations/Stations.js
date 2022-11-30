@@ -3,6 +3,7 @@ import { createUseStyles } from 'react-jss';
 import { stationsApiCall } from "../../api";
 import RemoveIcon from "../../assets/RemoveIcon";
 import { gray2, green } from "../../styles/variables";
+import useViewport from "../../utils/useViewport";
 
 export default function Stations () {
     const [external_id, setExternalId] = useState('');
@@ -12,6 +13,8 @@ export default function Stations () {
     const [altitude, setAltitude] = useState('');
 
     const [stations, setStations] = useState([]);
+
+    const { viewportWidth } = useViewport();
 
     useEffect(() => {
         getStations();
@@ -121,7 +124,7 @@ export default function Stations () {
                         <button
                             onClick={() => deleteStation(el.external_id)}
                             className={classes.removeButton}>
-                            <RemoveIcon size='16px' />
+                            <RemoveIcon size={viewportWidth > 1024 ? '16px' : '22px'} />
                         </button>
                         <p className={classes.stationInfo}>
                             <span className={classes.infoTitle}>Name</span>
@@ -154,7 +157,15 @@ var useStyles = createUseStyles({
     container: {
         display: 'flex',
         justifyContent: 'space-between',
-        alignItems: "start"
+        alignItems: "start",
+        '@media (max-width: 439px)': {
+            flexDirection: "column",
+            alignItems: 'center',
+            paddingBottom: '20px'
+        },
+        '@media (max-width: 1023px)': {
+            margin: '0 12px'
+        }
     },
     searchBox: {
         width: '100%',
@@ -166,8 +177,9 @@ var useStyles = createUseStyles({
         borderRadius: '6px',
         fontSize: '16px',
         margin: '0 0 12px 0',
-        '@media (max-width: 600px)': {
-            fontSize: '14px'
+        '@media (max-width: 1023px)': {
+            fontSize: '14px',
+            padding: '12px',
         }
     },
     addStation: {
@@ -179,7 +191,11 @@ var useStyles = createUseStyles({
         border: 'none',
         borderRadius: '6px',
         padding: '6px',
-        cursor: "pointer"
+        cursor: "pointer",
+        marginTop: '14px',
+        '@media (max-width: 1023px)': {
+            padding: '12px',
+        }
     },
     disabled: {
         background: gray2,
@@ -195,14 +211,42 @@ var useStyles = createUseStyles({
     },
     left: {
         width: '30%',
-        marginTop: '32px'
+        marginTop: '32px',
+        '@media (max-width: 459px)': {
+            width: '85%',
+        },
+        '@media (min-width: 460px) and (max-width: 639px)': {
+            width: '50%'
+        },
+        '@media (min-width: 640px) and (max-width: 767px)': {
+            width: '30%'
+        },
+        '@media (min-width: 768px) and (max-width: 1023px)': {
+            width: '35%'
+        }
     },
     right: {
         width: '60%',
         display: "flex",
         flexWrap: 'wrap',
         justifyContent: 'end',
-        marginTop: '20px'
+        marginTop: '32px',
+        '@media (max-width: 459px)': {
+            width: '85%',
+        },
+        '@media (min-width: 440px) and (max-width: 1023px)': {
+            overflow: "scroll",
+            maxHeight: 'calc(100vh - 114px)'
+        },
+        '@media (min-width: 460px) and (max-width: 639px)': {
+            width: '50%',
+        },
+        '@media (min-width: 640px) and (max-width: 767px)': {
+            width: '70%',
+        },
+        '@media (min-width: 768px) and (max-width: 1023px)': {
+            width: '65%'
+        },
     },
     noMargin: {
         margin: 0
@@ -218,15 +262,26 @@ var useStyles = createUseStyles({
         alignItems: "start",
         margin: '14px 0 0 14px',
         transition: 'transform 0.2s',
+        '&:first-child': {
+            margin: '0 0 0 14px',
+            '@media (max-width: 439px)': {
+                margin: 0,
+            },
+        },
+        '&:nth-child(2)': {
+            '@media (min-width: 640px)': {
+                margin: '0 0 0 14px'
+            }
+        },
         '&:hover': {
             transform: 'scale(1.02)'
-        }
-        // '&:nth-child(2n)': {
-        //     margin: '14px 0',
-        // },
-        // '&:nth-child(2n+1)': {
-        //     margin: '14px 14px 14px 0',
-        // }
+        },
+        '@media (max-width: 639px)': {
+            width: '100%',
+        },
+        '@media (max-width: 439px)': {
+            margin: '14px 0 0 0',
+        },
     },
     removeButton: {
         background: 'transparent',
@@ -248,7 +303,6 @@ var useStyles = createUseStyles({
         color: gray2
     },
     infoValue: {
-        textAlign: 'right',
-        // width: '40%'
+        textAlign: 'right'
     }
 })

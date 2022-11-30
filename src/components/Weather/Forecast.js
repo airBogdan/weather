@@ -1,4 +1,4 @@
-import { capitalize, formatDate } from "../../utils";
+import { capitalize, formatDate } from "../../utils/helpers";
 import { createUseStyles } from "react-jss";
 import {gray, gray2} from "../../styles/variables";
 
