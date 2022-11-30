@@ -1,6 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
-import Weather from "./components/Weather/Weather";
-import Stations from "./components/Stations/Stations";
+import Weather from "./views/Weather";
+import Stations from "./views/Stations";
 
 export const Paths = {
     WEATHER_PATH: '/',

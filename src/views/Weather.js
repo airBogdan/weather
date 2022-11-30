@@ -1,16 +1,21 @@
-import React, { useState } from 'react'
-import CurrentWeather from "./Current";
-import ForecastWeather from "./Forecast";
-import { apiCall } from "../../api";
+import React, { useState, useEffect } from 'react'
+import CurrentWeather from "../components/Weather/Current";
+import ForecastWeather from "../components/Weather/Forecast";
+import { apiCall } from "../api";
 import { createUseStyles } from 'react-jss';
-import countryCodes from './../../assets/countryCodes.json';
-import { green } from "../../styles/variables";
-import ChevronDown from "../../assets/chevronDown";
-import MagnifyingGlass from "../../assets/MagnifyingGlass";
-import TickIcon from "../../assets/TickIcon";
-import useViewport from "../../utils/useViewport";
+import countryCodes from '../assets/countryCodes.json';
+import { green } from "../styles/variables";
+import ChevronDown from "../assets/chevronDown";
+import MagnifyingGlass from "../assets/MagnifyingGlass";
+import TickIcon from "../assets/TickIcon";
+import useViewport from "../utils/useViewport";
+
+import { useDispatch } from 'react-redux'
+import { toggleLoading } from "../store/slices/loadingSlice";
 
 export default function Weather () {
+    const dispatch = useDispatch();
+
     const CURRENT_WEATHER = { label: 'Current weather', value: 'weather' };
     const FORECAST = { label: 'Forecasted weather', value: 'forecast' };
 
@@ -23,8 +28,9 @@ export default function Weather () {
 
     const { viewportWidth } = useViewport();
 
-    async function getWeather (type) {
-        const coords = await apiCall(`geo/1.0/direct?q=${locationSearch}`)
+    async function getWeather () {
+        dispatch(toggleLoading(true));
+        const coords = await apiCall(`geo/1.0/direct?q=${locationSearch}`);
         if (coords && coords[0]) {
             let { lon, lat, name, country } = coords[0]
             const countryFull = countryCodes.find(el => el.code == country)
@@ -33,6 +39,7 @@ export default function Weather () {
             const weather = await apiCall(`data/2.5/${infoType.value}?lat=${lat}&lon=${lon}&units=metric`)
             if ('list' in weather) setWeather({ list: weather.list })
             if ('main' in weather) setWeather({ main: weather.main, wind: weather.wind, description: weather.weather[0] })
+            dispatch(toggleLoading(false));
         }
     }
 
@@ -91,7 +98,8 @@ var useStyles = createUseStyles({
         width: '100%',
         maxWidth: '480px',
         marginLeft: 'auto',
-        marginRight: "auto"
+        marginRight: "auto",
+        paddingBottom: '20px'
     },
     searchContainerOuter: {
         margin: '80px 12px 0',

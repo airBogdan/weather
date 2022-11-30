@@ -1,11 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { createUseStyles } from 'react-jss';
-import { stationsApiCall } from "../../api";
-import RemoveIcon from "../../assets/RemoveIcon";
-import { gray2, green } from "../../styles/variables";
-import useViewport from "../../utils/useViewport";
+import { stationsApiCall } from "../api";
+import RemoveIcon from "../assets/RemoveIcon";
+import { gray2, green } from "../styles/variables";
+import useViewport from "../utils/useViewport";
+
+import { useDispatch } from 'react-redux'
+import { toggleLoading } from "../store/slices/loadingSlice";
 
 export default function Stations () {
+    const dispatch = useDispatch();
+
     const [external_id, setExternalId] = useState('');
     const [name, setName] = useState('');
     const [latitude, setLatitude] = useState('');
@@ -17,6 +22,7 @@ export default function Stations () {
     const { viewportWidth } = useViewport();
 
     useEffect(() => {
+        dispatch(toggleLoading(true));
         getStations();
     }, [])
 
@@ -29,6 +35,7 @@ export default function Stations () {
     }
 
     async function addStation () {
+        dispatch(toggleLoading(true));
         if (disabledButton()) return
         const data = {
             external_id,
@@ -42,17 +49,21 @@ export default function Stations () {
             setStations([...stations, data]);
             resetState();
         }
+        dispatch(toggleLoading(false));
     }
 
     async function getStations () {
-        const { data } = await stationsApiCall('stations')
+        const { data } = await stationsApiCall('stations');
         setStations(data);
+        dispatch(toggleLoading(false));
     }
 
     async function deleteStation (id) {
+        dispatch(toggleLoading(true));
         const station = stations.filter(el => el.external_id != id);
         const res = await stationsApiCall('stations', 'DELETE', { external_id: id })
         if (res.success) setStations(station);
+        dispatch(toggleLoading(false));
     }
 
     function disabledButton () {
