@@ -18,15 +18,13 @@ comes from the backend, at start
 - check that the component that displays the results changes, if the weather selection
 changes (weather - forecast)
 - check that the correct weather endpoint is called depending on the selected weather 
-type selected
+type
 - check that the content of the UI results match the data received in the api call 
 (need to mock the api call and hard code the response data)
-- if a more complicated logic is implemented, and have an api call in a store action,
+- if a more complicated logic is implemented, and there is an api call in a store action,
 check that the apiCall custom method was called and with the right parameters
-- test the custom methods in the utils file, one that formats the date and one that
-capitalizes each word in a string
-- test that calling the add station method results in a new weather station appears
-in the dom
+- test the custom methods in the utils folder, the helper functions 
+- test that calling the add station method results in a new weather station appearing in the dom
 - test that calling the delete station function removes the correct station
 - test that when calling the get stations function, the response data matches the 
 list of stations in the dom
@@ -36,66 +34,61 @@ list of stations in the dom
 that the dom elements exist when clicking a button and they contain the needed info,
 as well as other clickable elements, such as the dropdown list and the correct one is
 selected
-- etc
+- test website flows, that clicking a button will lead to a specific page and has some specific parametres
 
 ### Styles
 - I've used jss as the styling option because I find it convenient to have the styles
-on the same page as the logic, I find the styles faster. 
-- there are no risks of class overlapping, even if the literal name is the same in two
-different components, they get build into different class names
-- bit of downside is the fact that if you need to use multiple class names, writing 
-them would occupy some space, or can be moved inside of a function or constant, as extra code
+on the same page as the logic. I find the styles faster. 
+- using jss there is no risk of class overlapping, even if the literal name is the same in two
+different components, because they get build into different class names
+- a bit of downside is the fact that if you need to use multiple class names, writing 
+them would occupy some space, or can be moved inside of a function or constant, as extra lines of code
 
 ### Make the application fast
-- implement lazy load so that only the code for the accesed page is loaded, not the whole 
-website
 - use bundler chunking when building for production, so that the code gets split in
-different files, so not all code is shipped when loading a page
-- optimize image size, if any
-- memoize components / functions that need it (most don't)
+different files, so not all code is shipped when loading a page, but only the code for the visited page
+- optimize image sizes, if any
+- memoize components / functions that need it (most don't), to reduce nr of component rerendering
 - in case of having pages with much larger content, above the fold optimisation can 
 be used, which will only initially load the content the appears and fits on the screen.
-The rest will be loaded when starting to scroll. The same technique can be further used
-multiple times on the same page is there is a lot to scroll (can be achieved by
+The rest will be loaded when scrolling. The same technique can be further used
+multiple times on the same page if there is a lot to scroll (can be achieved by
 using the Intersection Observer and lazy loading)
-- can use a CDN to store the assets
+- can use a CDN for deployment
 - run google lighthouse and follow their suggestions
 
 ### Easy to extend and maintain
-- use constants for string values, such as route names, colors etc
-- use external methods (like the ones in the utils file: capitalize, format date),
-in order to be able to test them and to be reused across the platform
-- have reusable customizable components (which is the main purpose of using a
-framework such as React)
+- use constants for values, such as route names, colors etc
+- use external methods (like the ones in the utils folder), in order to be able to test them and to reuse them
+across the project
+- have reusable customizable components (which is on of the main purposes of using a framework such as React)
 - I cant specify or articulate the granularity of the components, because making them
 too small will lead to having a lot of them, but also having components too big 
-would also harm the readability and maintainability of those components, so a balance
+would harm the readability and maintainability of those components, so a balance
 should be achieved
-- not having a components so much customizable so that one can do 50 things,
-because that means that that component will have a lot of logic inside, so its
+- not having a component do a lot, because that means that that component will have a lot of logic inside, so its
 about balance again
 - having tests for most if not all of the components
 - document things, with comments inside the code or with readme files that explain
 flows, logic (example: read the readme file, understand what happens in the component,
-and then when you read the code you will understand it faster)
+and then when you read the code and comments you will understand it faster)
 
 ### Deploy
 - can be deployed statically to a service such as Netlify (where this current one is
-hosted) or other similar service (which usually have a CDN service)
+hosted) or other someting similar (which usually have CDN services)
 - on a physical private server
 - in a container in a cloud
-- setting up CI / CD pipelines, which will run tests, and then that the container
-image was deployed (in case of using this approach) and pipeline for the build
-- I'm not much of a devops, even though I'm looking into how things work and still 
-learning, 
+- setting up CI / CD pipelines, for the tests, for the deployment of the container
+image (in case of using this approach) and pipeline for the build process
+- I'm don't have a lot of devops experience, even though I'm looking into how things work and still learning. 
 
 ### What I could have improved (other than the things mentioned above)
-- make the weather card component a separate one
-- make the weather stations card a separate one
-- standardize the css, meaning have the default values for padding, margins etc in a variable
+- make the weather card a component
+- make the weather stations card a component
+- standardize the css, meaning have the default values for padding, margins etc stored in a variable
 or external class
-- make the navbar on mobile / tablet a hamburger menu and hidden sidebar, but since it
-only has 2 links, I didn't do it here
+- make the navbar on mobile / tablet use a hamburger menu and hidden sidebar, but since it
+only has 2 links, I didn't implement it here
 - fix some styling
 - I always try to improve and fix things, but I have to stop at some point and this is
 where I stopped
