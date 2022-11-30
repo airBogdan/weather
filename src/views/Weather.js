@@ -67,7 +67,7 @@ export default function Weather () {
                         id="location"
                         onInput={ev => setLocationSearch(ev.target.value)}
                         onKeyDown={e => e.code == 'Enter' ? getWeather() : null}
-                        placeholder={viewportWidth > 800 ? 'Search by city, country, zip code' : 'Search'}
+                        placeholder={viewportWidth > 800 ? 'Search city, country, zip' : 'Search'}
                     />
                     <div className={classes.selectContainerOuter}>
                         <div onClick={() => setShowDropdown(!showDropdown)} className={classes.selectContainerInner}>
