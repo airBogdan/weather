@@ -89,3 +89,13 @@ image was deployed (in case of using this approach) and pipeline for the build
 - I'm not much of a devops, even though I'm looking into how things work and still 
 learning, 
 
+### What I could have improved (other than the things mentioned above)
+- make the weather card component a separate one
+- make the weather stations card a separate one
+- standardize the css, meaning have the default values for padding, margins etc in a variable
+or external class
+- make the navbar on mobile / tablet a hamburger menu and hidden sidebar, but since it
+only has 2 links, I didn't do it here
+- fix some styling
+- I always try to improve and fix things, but I have to stop at some point and this is
+where I stopped
