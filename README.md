@@ -1,4 +1,9 @@
 ## Hello, and welcome to my small weather app.
+It is deployed on netlify.
+
+(please note that I wasn't succesful in posting to the weather stations api, even though
+I purchased the subscription. So I created an express server with a mongo db and
+deployed it to Railway to simulate the same functionality)
 
 ### I haven't seen any wireframes so I designed it on my own
 (the search bar design is inspired from accuweather)
