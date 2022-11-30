@@ -23,8 +23,15 @@ export default function Stations () {
 
     useEffect(() => {
         dispatch(toggleLoading(true));
+
+        async function getStations () {
+            const { data } = await stationsApiCall('stations');
+            setStations(data);
+            dispatch(toggleLoading(false));
+        }
+
         getStations();
-    }, [])
+    }, [dispatch])
 
     function resetState () {
         setExternalId('');
@@ -49,12 +56,6 @@ export default function Stations () {
             setStations([...stations, data]);
             resetState();
         }
-        dispatch(toggleLoading(false));
-    }
-
-    async function getStations () {
-        const { data } = await stationsApiCall('stations');
-        setStations(data);
         dispatch(toggleLoading(false));
     }
 
